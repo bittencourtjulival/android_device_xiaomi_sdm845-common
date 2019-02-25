@@ -109,9 +109,6 @@ TARGET_RELEASETOOLS_EXTENSIONS := $(COMMON_PATH)
 # RIL
 ENABLE_VENDOR_RIL_SERVICE := true
 
-# Security patch level
-VENDOR_SECURITY_PATCH := 2020-12-01
-
 # SELinux
 include device/qcom/sepolicy_vndr-legacy-um/SEPolicy.mk
 
