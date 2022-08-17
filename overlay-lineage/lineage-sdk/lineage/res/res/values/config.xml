@@ -24,4 +24,9 @@
         <item>restart_bootloader</item>
         <item>restart_fastboot</item>
      </string-array>
+     <!-- Whether or not the device is capable of multiple levels of vibration intensity.
+         Note that this is different from whether it can control the vibration amplitude as some
+         devices will be able to vary their amplitude but do not possess enough dynamic range to
+         have distinct intensity levels -->
+    <integer name="config_vibration_supported_intensity_levels">3</integer>
 </resources>
