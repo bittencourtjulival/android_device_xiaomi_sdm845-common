@@ -40,6 +40,8 @@ BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_CONFIG := vendor/xiaomi/mi845_defconfig
 TARGET_KERNEL_SOURCE := kernel/xiaomi/sdm845
+TARGET_KERNEL_CLANG_VERSION := r437112b
+TARGET_KERNEL_CLANG_PATH := $(shell pwd)/prebuilts/clang/host/linux-x86/clang-r437112b
 
 # Platform
 TARGET_BOARD_PLATFORM := sdm845
