@@ -18,42 +18,49 @@ import common
 import re
 
 def FullOTA_InstallEnd(info):
-  OTA_InstallEnd(info)
+  input_zip = info.input_zip
+  OTA_UpdateFirmware(info)
+  OTA_InstallEnd(info, input_zip)
   return
 
 def IncrementalOTA_InstallEnd(info):
-  OTA_InstallEnd(info)
+  input_zip = info.target_zip
+  OTA_UpdateFirmware(info)
+  OTA_InstallEnd(info, input_zip)
   return
 
-def FullOTA_Assertions(info):
-  AddTrustZoneAssertion(info, info.input_zip)
-  return
+def OTA_UpdateFirmware(info):
+  info.script.AppendExtra('ui_print("Flashing firmware images");')
+  info.script.AppendExtra('package_extract_file("install/firmware-update/abl.elf", "/dev/block/bootdevice/by-name/abl_a");')
+  info.script.AppendExtra('package_extract_file("install/firmware-update/abl.elf", "/dev/block/bootdevice/by-name/abl_b");')
+  info.script.AppendExtra('package_extract_file("install/firmware-update/cmnlib64.img", "/dev/block/bootdevice/by-name/cmnlib64_a");')
+  info.script.AppendExtra('package_extract_file("install/firmware-update/aop.img", "/dev/block/bootdevice/by-name/aop_a");')
+  info.script.AppendExtra('package_extract_file("install/firmware-update/devcfg.img", "/dev/block/bootdevice/by-name/devcfg_a");')
+  info.script.AppendExtra('package_extract_file("install/firmware-update/qupfw.img", "/dev/block/bootdevice/by-name/qupfw_a");')
+  info.script.AppendExtra('package_extract_file("install/firmware-update/tz.img", "/dev/block/bootdevice/by-name/tz_a");')
+  info.script.AppendExtra('package_extract_file("install/firmware-update/storsec.img", "/dev/block/bootdevice/by-name/storsec_a");')
+  info.script.AppendExtra('package_extract_file("install/firmware-update/keymaster.img", "/dev/block/bootdevice/by-name/keymaster_a");')
+  info.script.AppendExtra('package_extract_file("install/firmware-update/bluetooth.img", "/dev/block/bootdevice/by-name/bluetooth");')
+  info.script.AppendExtra('package_extract_file("install/firmware-update/xbl.img", "/dev/block/bootdevice/by-name/xbl_a");')
+  info.script.AppendExtra('package_extract_file("install/firmware-update/modem.img", "/dev/block/bootdevice/by-name/modem");')
+  info.script.AppendExtra('package_extract_file("install/firmware-update/xbl_config.img", "/dev/block/bootdevice/by-name/xbl_config_a");')
+  info.script.AppendExtra('package_extract_file("install/firmware-update/dsp.img", "/dev/block/bootdevice/by-name/dsp");')
+  info.script.AppendExtra('package_extract_file("install/firmware-update/logo.img", "/dev/block/bootdevice/by-name/logo");')
+  info.script.AppendExtra('package_extract_file("install/firmware-update/cmnlib.img", "/dev/block/bootdevice/by-name/cmnlib_a");')
+  info.script.AppendExtra('package_extract_file("install/firmware-update/hyp.img", "/dev/block/bootdevice/by-name/hyp_a");')
 
-def IncrementalOTA_Assertions(info):
-  AddTrustZoneAssertion(info, info.target_zip)
-  return
-
-def AddImage(info, basename, dest):
-  path = "IMAGES/" + basename
-  if path not in info.input_zip.namelist():
+def AddImage(info, input_zip, basename, dest):
+  name = basename
+  path = "IMAGES/" + name
+  if path not in input_zip.namelist():
     return
 
-  data = info.input_zip.read(path)
-  common.ZipWriteStr(info.output_zip, basename, data)
+  data = input_zip.read(path)
+  common.ZipWriteStr(info.output_zip, name, data)
   info.script.Print("Patching {} image unconditionally...".format(dest.split('/')[-1]))
-  info.script.AppendExtra('package_extract_file("%s", "%s");' % (basename, dest))
+  info.script.AppendExtra('package_extract_file("%s", "%s");' % (name, dest))
 
-def OTA_InstallEnd(info):
-  AddImage(info, "dtbo.img", "/dev/block/bootdevice/by-name/dtbo")
-  AddImage(info, "vbmeta.img", "/dev/block/bootdevice/by-name/vbmeta")
-  return
-
-def AddTrustZoneAssertion(info, input_zip):
-  android_info = info.input_zip.read("OTA/android-info.txt")
-  m = re.search(r'require\s+version-trustzone\s*=\s*(\S+)', android_info.decode('utf-8'))
-  if m:
-    versions = m.group(1).split('|')
-    if len(versions) and '*' not in versions:
-      cmd = 'assert(xiaomi.verify_trustzone(' + ','.join(['"%s"' % tz for tz in versions]) + ') == "1" || abort("ERROR: This package requires firmware from an Android 10 based MIUI build. Please upgrade firmware and retry!"););'
-      info.script.AppendExtra(cmd)
+def OTA_InstallEnd(info, input_zip):
+  AddImage(info, input_zip, "vbmeta.img", "/dev/block/bootdevice/by-name/vbmeta")
+  AddImage(info, input_zip, "dtbo.img", "/dev/block/bootdevice/by-name/dtbo")
   return
