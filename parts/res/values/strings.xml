@@ -21,17 +21,11 @@
 
     <!-- Dirac settings -->
     <string name="dirac_enable">Enable dirac</string>
-<<<<<<< pyro-test
-    <string name="dirac_title">Dirac sound enhancer</string>
-    <string name="dirac_headset_title">Headset type</string>
-    <string name="dirac_preset_title">Sound preset</string>
-=======
     <string name="dirac_title">Mi Sound Enhancer</string>
     <string name="dirac_summary">Optimize audio quality</string>
     <string name="dirac_headset_title">Choose headphones type</string>
     <string name="dirac_preset_title">Choose a preset</string>
     <string name="dirac_hifi_enable_title"> Enable Hi-fi</string>
->>>>>>> 8397283 Update parts
 
     <!-- Dirac settings: Headset types -->
     <string name="dirac_headset_default">Default</string>
@@ -69,8 +63,6 @@
     <string name="dirac_preset_country">Country</string>
     <string name="dirac_preset_dance">Dance</string>
     <string name="dirac_preset_metal">Metal</string>
-<<<<<<< pyro-test
-=======
     <string name="dirac_preset_bass_booster">Bass Booster</string>
     <string name="dirac_preset_live">Live</string>
     <string name="dirac_preset_balanced">Balanced</string>
@@ -83,20 +75,13 @@
     <string name="dirac_qs_tile_title">Dirac sound</string>
     <string name="on">On</string>
     <string name="off">Off</string>
->>>>>>> 8397283 Update parts
 
     <!-- Thermal profiles -->
     <string name="thermal_title">Per-app Thermal profiles</string>
     <string name="thermal_summary">Adjust per-app thermal profiles for optimum performance</string>
-<<<<<<< pyro-test
-    <string name="thermal_default">Default</string>
     <string name="thermal_benchmark">Benchmark</string>
     <string name="thermal_browser">Browser</string>
-    <string name="thermal_camera">Camera</string>
-    <string name="thermal_dialer">Dialer</string>
-    <string name="thermal_gaming">Gaming</string>
     <string name="thermal_streaming">Streaming</string>
-=======
     <string name="thermal_default">No Optimization</string>
     <string name="thermal_camera">Balance</string>
     <string name="thermal_dialer">Battery</string>
@@ -114,6 +99,4 @@
     <!-- HIFI -->
     <string name="dirac_hifi_title">Hi-Fi</string>
     <string name="dirac_hifi_summary">Decrease noise and Distortion and increase audio quality</string>
-
->>>>>>> 8397283 Update parts
 </resources>
