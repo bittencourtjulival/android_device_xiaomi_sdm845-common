@@ -6,12 +6,6 @@ allow init thermal_engine_prop:file{
   map 
   read };
 
-allow init hal_fingerprint_prop:file{
-  relabelto
-  write
-  map
-  read };
-
 allow init vendor_power_prop:file{
   relabelto
   write
