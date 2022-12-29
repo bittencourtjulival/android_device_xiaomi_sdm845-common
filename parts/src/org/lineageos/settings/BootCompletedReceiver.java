@@ -21,11 +21,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.content.SharedPreferences;
 
 import org.lineageos.settings.dirac.DiracUtils;
 import org.lineageos.settings.doze.DozeUtils;
 import org.lineageos.settings.thermal.ThermalUtils;
 import org.lineageos.settings.display.KcalUtils;
+import androidx.preference.PreferenceManager;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
 
@@ -34,6 +36,8 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {
+         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+         
         if (DEBUG) Log.d(TAG, "Received boot completed intent");
         try {
             DiracUtils.getInstance(context);
