@@ -1,0 +1,25 @@
+# KCal
+    chown system system /sys/devices/platform/kcal_ctrl.0/kcal_cont
+    chown system system /sys/devices/platform/kcal_ctrl.0/kcal_enable
+    chown system system /sys/devices/platform/kcal_ctrl.0/kcal_hue
+    chown system system /sys/devices/platform/kcal_ctrl.0/kcal_sat
+    chown system system /sys/devices/platform/kcal_ctrl.0/kcal_val
+    chown system system /sys/devices/platform/kcal_ctrl.0/kcal_min
+    chown system system /sys/devices/platform/kcal_ctrl.0/kcal
+    chmod 660 /sys/devices/platform/kcal_ctrl.0/kcal_cont
+    chmod 660 /sys/devices/platform/kcal_ctrl.0/kcal_enable
+    chmod 660 /sys/devices/platform/kcal_ctrl.0/kcal_hue
+    chmod 660 /sys/devices/platform/kcal_ctrl.0/kcal_sat
+    chmod 660 /sys/devices/platform/kcal_ctrl.0/kcal_val
+    chmod 660 /sys/devices/platform/kcal_ctrl.0/kcal_min
+    chmod 660 /sys/devices/platform/kcal_ctrl.0/kcal
+   
+on property:sys.boot_completed=1
+# Audio gain permissions
+  chown system system /sys/kernel/sound_control/headphone_gain
+  chown system system /sys/kernel/sound_control/mic_gain
+  chown system system /sys/kernel/sound_control/speaker_gain
+  restorecon_recursive /sys/kernel/sound_control
+  chmod 0660 /sys/kernel/sound_control/headphone_gain
+  chmod 0660 /sys/kernel/sound_control/mic_gain
+  chmod 0660 /sys/kernel/sound_control/speaker_gain
